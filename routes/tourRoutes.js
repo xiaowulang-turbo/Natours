@@ -7,11 +7,6 @@ const tours = JSON.parse(
     fs.readFileSync(`${__dirname}/../dev-data/data/tours-simple.json`)
 )
 
-// const tours = JSON.parse(
-//     fs.readFileSync(`${__dirname}/dev-data/data/tours-simple.json`)
-// )
-// console.log(tours);
-
 const getAllTours = (req, res) => {
     console.log(req.requestTime)
 
