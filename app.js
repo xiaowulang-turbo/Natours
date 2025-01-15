@@ -14,6 +14,8 @@ app.use(morgan('dev'))
 // Middleware: function in the middle of request and response, can modify request and response
 app.use(express.json())
 
+app.use(express.static(`${__dirname}/public`))
+
 app.use((req, res, next) => {
     console.log('Hello from the middleware 😀')
     //console.log(req.headers);
