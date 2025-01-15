@@ -4,12 +4,17 @@
     "description": "Learning node, express and mongoDB",
     "main": "app.js",
     "scripts": {
-        "start": "nodemon server.js"
+        "start": "nodemon server.js",
+        "start:prod": "cross-env NODE_ENV=production nodemon server.js"
     },
     "author": "Xiao wu",
     "license": "ISC",
     "dependencies": {
+        "dotenv": "^16.4.7",
         "express": "^4.21.2",
         "morgan": "^1.10.0"
+    },
+    "devDependencies": {
+        "cross-env": "^7.0.3"
     }
 }
