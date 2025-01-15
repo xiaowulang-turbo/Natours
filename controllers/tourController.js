@@ -18,6 +18,20 @@ exports.checkID = (req, res, next, val) => {
     next()
 }
 
+exports.checkBody = (req, res, next) => {
+    console.log(req.body)
+
+    if (!req.body.name || !req.body.price) {
+        // 400: bad request
+        return res.status(400).json({
+            status: 'fail',
+            message: 'Missing name or price',
+        })
+    }
+    // Never miss the next() function
+    next()
+}
+
 // Keep the handlers function pure
 
 exports.getAllTours = (req, res) => {
