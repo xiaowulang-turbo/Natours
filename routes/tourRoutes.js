@@ -7,10 +7,10 @@ const {
     deleteTour,
 } = require('../controllers/tourController')
 
-const tourRouter = express.Router()
+const router = express.Router()
 
-tourRouter.route('/').get(getAllTours).post(createTour)
+router.route('/').get(getAllTours).post(createTour)
 
-tourRouter.route('/:id').get(getTour).patch(updateTour).delete(deleteTour)
+router.route('/:id').get(getTour).patch(updateTour).delete(deleteTour)
 
-module.exports = tourRouter
+module.exports = router
