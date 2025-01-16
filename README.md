@@ -9,3 +9,7 @@
 -   编写 express 中间件时，永远不能忘记调用 next 函数
 -   express 中间件丰富，使用方法多样，需要多练习、多积累
 -   Windows 默认的命令行（如 CMD 或 PowerShell）不能直接识别 NODE_ENV=production 的方式来设置环境变量, 需使用 cross-env 作为开发依赖
+
+# DataBase
+
+-   MongoDB 使用 BSON 格式，在 compass 的 mongoShell 实际操作时发现，document 的键不需要引号包裹，但值需要引号（单双引号均可）
