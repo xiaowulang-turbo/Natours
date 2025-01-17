@@ -116,10 +116,19 @@ exports.updateTour = async (req, res) => {
     }
 }
 
-exports.deleteTour = (req, res) => {
-    // 204: no content
-    res.status(204).json({
-        status: 'success',
-        data: null,
-    })
+exports.deleteTour = async (req, res) => {
+    try {
+        // In restful API, we use 204 to indicate that the request is successful but there is no content to return
+        await Tour.findByIdAndDelete(req.params.id)
+        // 204: no content
+        res.status(204).json({
+            status: 'success',
+            data: null,
+        })
+    } catch (err) {
+        res.status(404).json({
+            status: 'fail',
+            message: err,
+        })
+    }
 }
