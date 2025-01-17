@@ -1,8 +1,7 @@
 // const fs = require('fs')
 const Tour = require('../models/tourModel')
 
-const tours = Tour.find()
-console.log(tours)
+// console.log(tours)
 
 // const tours = JSON.parse(
 //     fs.readFileSync(`${__dirname}/../dev-data/data/tours-simple.json`)
@@ -38,64 +37,63 @@ exports.checkBody = (req, res, next) => {
 
 // Keep the handlers function pure
 
-exports.getAllTours = (req, res) => {
-    console.log(req.requestTime)
-
-    res.status(200).json({
-        status: 'success',
-        // only count when we have an array
-        requestedAt: req.requestTime,
-        results: tours?.length || 1,
-        data: {
-            tours,
-        },
-    })
-}
-
-exports.getTour = (req, res) => {
-    // console.log(req.params)
-
-    // a nice trick to convert string to number
-    const id = req.params.id * 1
-    const tour = tours.find((el) => el.id === id)
-
-    // variables made by const and let cannot be accessed before where they are declared
-    // if (id > tours.length) {
-    if (!tour) {
-        // use return to stop the function immediately
-        return res.status(404).json({
+exports.getAllTours = async (req, res) => {
+    try {
+        const tours = await Tour.find()
+        res.status(200).json({
+            status: 'success',
+            // only count when we have an array
+            requestedAt: req.requestTime,
+            results: tours.length || 1,
+            data: {
+                tours,
+            },
+        })
+    } catch (err) {
+        res.status(404).json({
             status: 'fail',
-            message: 'Invalid ID',
+            message: err,
         })
     }
-
-    res.status(200).json({
-        status: 'success',
-        data: {
-            tour,
-        },
-    })
 }
 
-exports.createTour = (req, res) => {
-    //console.log(req.body);
-    const id = tours[tours.length - 1].id + 1
+exports.getTour = async (req, res) => {
+    try {
+        // a nice trick to convert string to number
+        const tour = await Tour.findById(req.params.id)
+        // const tour = await Tour.findOne({ _id: req.params.id })
 
-    const newTour = Object.assign({ id }, req.body)
-    tours.push(newTour)
+        // variables made by const and let cannot be accessed before where they are declared
 
-    // fs.writeFile(
-    //     `${__dirname}/dev-data/data/tours-simple.json`,
-    //     JSON.stringify(tours),
-    //     (err) => {
-    //         res.status(201).json({
-    //             status: 'success',
-    //             data: {
-    //                 tour: newTour,
-    //             },
-    //         })
-    //     }
-    // )
+        res.status(200).json({
+            status: 'success',
+            data: {
+                tour,
+            },
+        })
+    } catch (err) {
+        res.status(404).json({
+            status: 'fail',
+            message: err,
+        })
+    }
+}
+
+exports.createTour = async (req, res) => {
+    try {
+        const newTour = await Tour.create(req.body)
+        res.status(201).json({
+            status: 'success',
+            data: {
+                tour: newTour,
+            },
+        })
+    } catch (err) {
+        res.status(400).json({
+            status: 'fail',
+            message: err,
+        })
+    }
 }
 
 exports.updateTour = (req, res) => {
