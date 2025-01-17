@@ -1,14 +1,22 @@
 const dotenv = require('dotenv')
+const app = require('./app')
+const mongoose = require('mongoose')
 
 // This config should be ahead of app.js. Otherwise it will not work in other files
 dotenv.config({
     path: './config.env',
 })
 
-const app = require('./app')
+mongoose
+    .connect(process.env.DATABASE_URL, {
+        useNewUrlParser: true,
+        useCreateIndex: true,
+        useFindAndModify: false,
+    })
+    .then((con) => console.log('DB connection successful!', con.connection))
 
 // This env is set by express
-console.log(app.get('env'))
+// console.log(app.get('env'))
 
 // Everything has nothing to do with express should be done outside app.js
 // console.log(process.env)
