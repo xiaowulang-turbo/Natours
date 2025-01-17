@@ -1,8 +1,12 @@
-const fs = require('fs')
+// const fs = require('fs')
+const Tour = require('../models/tourModel')
 
-const tours = JSON.parse(
-    fs.readFileSync(`${__dirname}/../dev-data/data/tours-simple.json`)
-)
+const tours = Tour.find()
+console.log(tours)
+
+// const tours = JSON.parse(
+//     fs.readFileSync(`${__dirname}/../dev-data/data/tours-simple.json`)
+// )
 
 // Use middlewares to deal with extra logics, this is also the philosophy of express
 
@@ -49,7 +53,7 @@ exports.getAllTours = (req, res) => {
 }
 
 exports.getTour = (req, res) => {
-    console.log(req.params)
+    // console.log(req.params)
 
     // a nice trick to convert string to number
     const id = req.params.id * 1
@@ -80,18 +84,18 @@ exports.createTour = (req, res) => {
     const newTour = Object.assign({ id }, req.body)
     tours.push(newTour)
 
-    fs.writeFile(
-        `${__dirname}/dev-data/data/tours-simple.json`,
-        JSON.stringify(tours),
-        (err) => {
-            res.status(201).json({
-                status: 'success',
-                data: {
-                    tour: newTour,
-                },
-            })
-        }
-    )
+    // fs.writeFile(
+    //     `${__dirname}/dev-data/data/tours-simple.json`,
+    //     JSON.stringify(tours),
+    //     (err) => {
+    //         res.status(201).json({
+    //             status: 'success',
+    //             data: {
+    //                 tour: newTour,
+    //             },
+    //         })
+    //     }
+    // )
 }
 
 exports.updateTour = (req, res) => {

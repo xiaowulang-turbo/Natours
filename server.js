@@ -20,25 +20,14 @@ mongoose.connect(process.env.DATABASE_URL, {
 // console.log(process.env)
 // this process is set by node.js
 
-const tourSchema = require('./models/tourModel')
-
-const testTour = new tourSchema({
-    name: 'The Forest Hiker',
-    rating: 4.7,
-    price: 497,
-})
-console.log(testTour)
-
-testTour
-    .save()
-    .then((doc) => {
-        console.log(doc)
-    })
-    .catch((err) => {
-        console.log(err)
-    })
+// const testTour = new tourSchema({
+//     name: 'The Forest Hiker',
+//     rating: 4.7,
+//     price: 497,
+// })
 
 const port = 3000
+
 app.listen(port, () => {
     console.log('Server is running on port 3000...')
 })
