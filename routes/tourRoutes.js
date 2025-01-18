@@ -7,6 +7,7 @@ const {
     deleteTour,
     checkID,
     checkBody,
+    aliasTopTours,
 } = require('../controllers/tourController')
 
 const router = express.Router()
@@ -17,6 +18,9 @@ const router = express.Router()
 // Check if the body contains the name and price property
 // If not, send back 400 (Bad Request)
 // Add it to the post handler stack
+
+// this must be ahead of the id route or it will not work
+router.route('/top-5-cheap').get(aliasTopTours, getAllTours)
 
 router.route('/').get(getAllTours).post(createTour)
 
