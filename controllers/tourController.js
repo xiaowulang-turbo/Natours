@@ -39,12 +39,22 @@ exports.checkBody = (req, res, next) => {
 
 exports.getAllTours = async (req, res) => {
     try {
+        console.log(req.query)
+        // BUILD QUERY
+        // 1) Filtering
+
         const queryObj = { ...req.query }
         const excludedFields = ['page', 'sort', 'limit', 'fields']
         excludedFields.forEach((el) => delete queryObj[el])
 
+        // 2) Advanced filtering
         // we cannot use await here because we need to deal with other queries like sort, limit, page later
-        const query = Tour.find(queryObj)
+        let queryStr = JSON.stringify(queryObj)
+        queryStr = queryStr.replace(
+            /\b(gte|gt|lte|lt)\b/g,
+            (match) => `$${match}`
+        )
+        const query = Tour.find(JSON.parse(queryStr))
 
         // const query = Tour.find()
         //     .where('duration')
@@ -52,6 +62,7 @@ exports.getAllTours = async (req, res) => {
         //     .where('difficulty')
         //     .equals('easy')
 
+        // EXE CUTE QUERY
         const tours = await query
 
         res.status(200).json({
