@@ -16,3 +16,6 @@
 - MongoDB 使用 BSON 格式，在 compass 的 mongoShell 实际操作时发现，document 的键不需要引号包裹，但值需要引号（单双引号均可）
 - MongoDB Atlas 需要配置 IP 地址白名单，否则无法连接。或者可以在 cluster 配置里允许所有 IP 地址连接
 - 发送的部分键值对，如果不在schema中，则会被忽略，不会存入数据库
+- Fields limit 可以减少发送的数据量，这也被称为“投影”操作（Projecting），即只发送部分字段
+- 发送limit操作请求时，所有字段要么都不加'-'，要么都加'-'， 不能同时使用
+- 可以在schema中设置select为false，这样在查询时，该字段不会返回。这样可以隐藏一些敏感数据
