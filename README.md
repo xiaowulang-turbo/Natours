@@ -22,3 +22,5 @@
 - 可以在schema中设置select为false，这样在查询时，该字段不会返回。这样可以隐藏一些敏感数据
 - countDocuments 是Model上的一个方法，可以返回查询到的document数量
 - MongoDB 的query对象类似于supabase的Client，可以链式调用，如find().skip().limit()等，需要多积累，多练习
+- 利用中间件，配合alias路由，可以方便地保存一些常用的路由，比如/top-5-cheap，使用中间件修改query参数，实现最终目的
+- 在编辑alias路由时，需注意与其他已有路由的匹配关系，尽量放在已有路由之前
