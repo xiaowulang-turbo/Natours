@@ -3,6 +3,7 @@
 - let 和 const 声明的变量虽然会提前保存在作用域中，但是会存在暂时性死区，无法在声明前使用
 - api 函数内部如同时存在多个 send 方法会报错，如果有，应通过 return 一个 send 方法 的方式退出函数
 - node.js中查找路径时，'./'表示主目录，即node运行的文件所在目录，'../'表示上一级目录，`${__dirName}`表示当前文件所在目录
+- 使用“\* 1”的方法，可以快速将字符串转换为数字，这是一个nice trick
 
 # Problems
 
@@ -19,3 +20,5 @@
 - Fields limit 可以减少发送的数据量，这也被称为“投影”操作（Projecting），即只发送部分字段
 - 发送limit操作请求时，所有字段要么都不加'-'，要么都加'-'， 不能同时使用
 - 可以在schema中设置select为false，这样在查询时，该字段不会返回。这样可以隐藏一些敏感数据
+- countDocuments 是Model上的一个方法，可以返回查询到的document数量
+- MongoDB 的query对象类似于supabase的Client，可以链式调用，如find().skip().limit()等，需要多积累，多练习
