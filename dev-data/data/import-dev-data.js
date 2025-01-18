@@ -27,20 +27,28 @@ mongoose
 
 const method = process.argv[2]
 
+const importData = async () => {
+    try {
+        await Tour.create(tours)
+        console.log('Data successfully loaded!')
+    } catch (err) {
+        console.log(err)
+    }
+    process.exit() // Do not use this in big projects
+}
+
+const deleteData = async () => {
+    try {
+        await Tour.deleteMany()
+        console.log('Data successfully deleted!')
+    } catch (err) {
+        console.log(err)
+    }
+    process.exit()
+}
+
 if (method === '--import') {
-    Tour.create(tours)
-        .then((docs) => {
-            console.log(`${docs.length} tours added successfully`)
-        })
-        .catch((err) => {
-            console.log(err)
-        })
+    importData()
 } else if (method === '--delete') {
-    Tour.deleteMany()
-        .then(() => {
-            console.log('data deleted')
-        })
-        .catch((err) => {
-            console.log(err)
-        })
+    deleteData()
 }
