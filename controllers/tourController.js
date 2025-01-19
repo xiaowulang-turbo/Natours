@@ -47,6 +47,13 @@ exports.aliasTopTours = (req, res, next) => {
 
 exports.getAllTours = async (req, res) => {
     try {
+        // Another way to get query
+        // const tours = await Tour.find()
+        //     .where('difficulty')
+        //     .equals('easy')
+        //     .where('duration')
+        //     .lt(5)
+
         // EXECUTE QUERY
         const features = new APIFeatures(Tour.find(), req.query)
             .filter()
