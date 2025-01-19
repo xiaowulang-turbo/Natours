@@ -5,9 +5,8 @@ const {
     getTour,
     updateTour,
     deleteTour,
-    checkID,
-    checkBody,
     aliasTopTours,
+    getTourStats,
 } = require('../controllers/tourController')
 
 const router = express.Router()
@@ -21,6 +20,8 @@ const router = express.Router()
 
 // this must be ahead of the id route or it will not work
 router.route('/top-5-cheap').get(aliasTopTours, getAllTours)
+
+router.route('/tour-stats').get(getTourStats)
 
 router.route('/').get(getAllTours).post(createTour)
 
