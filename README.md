@@ -24,3 +24,4 @@
 - MongoDB 的query对象类似于supabase的Client，可以链式调用，如find().skip().limit()等，需要多积累，多练习
 - 利用中间件，配合alias路由，可以方便地保存一些常用的路由，比如/top-5-cheap，使用中间件修改query参数，实现最终目的
 - 在编辑alias路由时，需注意与其他已有路由的匹配关系，尽量放在已有路由之前
+- aggregate pipeline 是一个很有用的工具，它可以对原始数据进行过滤、分组（通过\_id）、排序等，返回新的统计数据
