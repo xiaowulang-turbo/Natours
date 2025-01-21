@@ -5,6 +5,7 @@
 - node.js中查找路径时，'./'表示主目录，即node运行的文件所在目录，'../'表示上一级目录，`${__dirName}`表示当前文件所在目录
 - 使用“\* 1”的方法，可以快速将字符串转换为数字，这是一个nice trick
 - 可以使用slugify工具将字符串转换为url友好的格式（也可以规定大小写）
+- 后端开发黄金准则：不要相信前端传来的数据，所有数据都应经过验证处理
 
 # Problems
 
@@ -29,3 +30,4 @@
 - 箭头函数没有this，mongoose许多地方（比如model的virtual property）需要使用this指针指向对应的对象，此时应使用function函数
 - Document Middleware方法也有next参数，如果只有一个pre中间件时，可以不调用next，如果有多个pre中间件时，必须调用next，否则会阻塞后续post中间件
 - Document Middleware针对不同方法，在document的不同阶段执行前调用，例如save方法会在save()和create()方法前调用
+- 在model中新加一个字段时，mongoose会将字段的默认值赋给已有的document，使用postman等工具可以看到变化，但数据库中的数据并不会自动更新，该字段本质上仍是未定义的。使用query中间件是需注意：原来的数据相关字段为null而非设置的默认值
