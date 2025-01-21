@@ -9,6 +9,10 @@ const tourSchema = new mongoose.Schema(
             required: [true, 'A tour must have a name'],
             unique: true,
         },
+        secretTour: {
+            type: Boolean,
+            default: false,
+        },
         slug: String,
         duration: {
             type: Number,
@@ -86,6 +90,18 @@ tourSchema.pre('save', function (next) {
 // Post method executes after all the pre methods execute
 // tourSchema.post('save', function (doc, next) {
 //     console.log(doc)
+//     next()
+// })
+
+// QUERY MIDDLEWARE: this object is the query object
+tourSchema.pre(/^find/, function (next) {
+    // this.start = Date.now()
+    this.find({ secretTour: { $ne: true } })
+    next()
+})
+
+// tourSchema.post(/^find/, function (docs, next) {
+//     console.log(`Query took ${Date.now() - this.start} milliseconds`)
 //     next()
 // })
 
