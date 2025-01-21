@@ -31,3 +31,5 @@
 - Document Middleware方法也有next参数，如果只有一个pre中间件时，可以不调用next，如果有多个pre中间件时，必须调用next，否则会阻塞后续post中间件
 - Document Middleware针对不同方法，在document的不同阶段执行前调用，例如save方法会在save()和create()方法前调用
 - 在model中新加一个字段时，mongoose会将字段的默认值赋给已有的document，使用postman等工具可以看到变化，但数据库中的数据并不会自动更新，该字段本质上仍是未定义的。使用query中间件是需注意：原来的数据相关字段为null而非设置的默认值
+- mongoose不同的中间件中，this指向的对象不同，是什么中间件，this就指向什么对象
+- AGGREGATION MIDDLEWARE中的pipeline属性是一个异步函数，需使用()调用，不然无法得到正确结果
