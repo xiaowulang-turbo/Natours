@@ -4,6 +4,7 @@
 - api 函数内部如同时存在多个 send 方法会报错，如果有，应通过 return 一个 send 方法 的方式退出函数
 - node.js中查找路径时，'./'表示主目录，即node运行的文件所在目录，'../'表示上一级目录，`${__dirName}`表示当前文件所在目录
 - 使用“\* 1”的方法，可以快速将字符串转换为数字，这是一个nice trick
+- 可以使用slugify工具将字符串转换为url友好的格式（也可以规定大小写）
 
 # Problems
 
@@ -26,3 +27,5 @@
 - 在编辑alias路由时，需注意与其他已有路由的匹配关系，尽量放在已有路由之前
 - aggregate pipeline 是一个很有用的工具，它可以对原始数据进行过滤、分组（通过\_id）、排序等，返回新的统计数据
 - 箭头函数没有this，mongoose许多地方（比如model的virtual property）需要使用this指针指向对应的对象，此时应使用function函数
+- Document Middleware方法也有next参数，如果只有一个pre中间件时，可以不调用next，如果有多个pre中间件时，必须调用next，否则会阻塞后续post中间件
+- Document Middleware针对不同方法，在document的不同阶段执行前调用，例如save方法会在save()和create()方法前调用
