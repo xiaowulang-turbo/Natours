@@ -33,3 +33,4 @@
 - 在model中新加一个字段时，mongoose会将字段的默认值赋给已有的document，使用postman等工具可以看到变化，但数据库中的数据并不会自动更新，该字段本质上仍是未定义的。使用query中间件是需注意：原来的数据相关字段为null而非设置的默认值
 - mongoose不同的中间件中，this指向的对象不同，是什么中间件，this就指向什么对象
 - AGGREGATION MIDDLEWARE中的pipeline属性是一个异步函数，需使用()调用，不然无法得到正确结果
+- express 的all方法可以匹配所有请求方法，可以把app.all('\*')放在所有路由之后，用于处理所有未匹配到的路由
