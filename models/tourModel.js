@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const slugify = require('slugify')
 
 // The second argument is the schema options
 const tourSchema = new mongoose.Schema(
@@ -8,6 +9,7 @@ const tourSchema = new mongoose.Schema(
             required: [true, 'A tour must have a name'],
             unique: true,
         },
+        slug: String,
         duration: {
             type: Number,
             required: [true, 'A tour must have a duration'],
@@ -72,5 +74,19 @@ tourSchema.virtual('durationWeeks').get(function () {
     return this.duration / 7
 })
 // You cannot use query methods on virtual properties
+
+// DOCUMENT MIDDLEWARE: method of save only runs before .save() and .create()
+tourSchema.pre('save', function (next) {
+    // console.log('This will run before save')
+    // console.log(this)
+    this.slug = slugify(this.name, { lower: true })
+    next()
+})
+
+// Post method executes after all the pre methods execute
+// tourSchema.post('save', function (doc, next) {
+//     console.log(doc)
+//     next()
+// })
 
 module.exports = mongoose.model('Tour', tourSchema)
