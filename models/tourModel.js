@@ -80,6 +80,7 @@ tourSchema.virtual('durationWeeks').get(function () {
 // You cannot use query methods on virtual properties
 
 // DOCUMENT MIDDLEWARE: method of save only runs before .save() and .create()
+// The this keyword here is the document object
 tourSchema.pre('save', function (next) {
     // console.log('This will run before save')
     // console.log(this)
@@ -104,5 +105,12 @@ tourSchema.pre(/^find/, function (next) {
 //     console.log(`Query took ${Date.now() - this.start} milliseconds`)
 //     next()
 // })
+
+// AGGREGATION MIDDLEWARE
+tourSchema.pre('aggregate', function (next) {
+    this.pipeline().unshift({ $match: { secretTour: { $ne: true } } })
+    // console.log(this.pipeline())
+    next()
+})
 
 module.exports = mongoose.model('Tour', tourSchema)
