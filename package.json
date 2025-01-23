@@ -6,7 +6,8 @@
     "scripts": {
         "start": "nodemon server.js",
         "start:prod": "cross-env NODE_ENV=production nodemon server.js",
-        "debug": "ndb server.js"
+        "debug": "ndb server.js",
+        "debug:prod": "cross-env NODE_ENV=production ndb server.js"
     },
     "author": "Xiao wu",
     "license": "ISC",
