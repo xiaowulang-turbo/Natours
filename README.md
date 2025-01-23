@@ -22,6 +22,7 @@
 - Windows 默认的命令行（如 CMD 或 PowerShell）不能直接识别 NODE_ENV=production 的方式来设置环境变量, 需使用 cross-env 作为开发依赖
 - 实测发现CastError不再是mongoose的返回的错误name名之一，不能使用name字段处理
 - 上一个问题可以改为使用kind字段处理，CastError的kind为ObjectId
+- 重复命名错误中，无法再获取errmsg，只能通过keyValue获取重复的值
 
 # DataBase
 
