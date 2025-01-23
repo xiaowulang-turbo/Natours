@@ -6,6 +6,7 @@
 - 使用“\* 1”的方法，可以快速将字符串转换为数字，这是一个nice trick
 - 可以使用slugify工具将字符串转换为url友好的格式（也可以规定大小写）
 - 后端开发黄金准则：不要相信前端传来的数据，所有数据都应经过验证处理
+- 覆盖函数的参数不是一个好主意，应尽量避免。如实在有需要，可以重新硬拷贝变量（解构配合...）
 
 # Express.js
 
@@ -19,6 +20,8 @@
 - 编写 express 中间件时，永远不能忘记调用 next 函数
 - express 中间件丰富，使用方法多样，需要多练习、多积累
 - Windows 默认的命令行（如 CMD 或 PowerShell）不能直接识别 NODE_ENV=production 的方式来设置环境变量, 需使用 cross-env 作为开发依赖
+- 实测发现CastError不再是mongoose的返回的错误name名之一，不能使用name字段处理
+- 上一个问题可以改为使用kind字段处理，CastError的kind为ObjectId
 
 # DataBase
 
