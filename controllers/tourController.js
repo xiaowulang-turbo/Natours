@@ -2,7 +2,7 @@
 const Tour = require('../models/tourModel')
 const APIFeatures = require('../utils/apiFeatures')
 const catchAsync = require('../utils/catchAsync')
-
+const AppError = require('../utils/appError')
 // console.log(tours)
 
 // const tours = JSON.parse(
@@ -82,6 +82,11 @@ exports.getTour = catchAsync(async (req, res, next) => {
 
     // variables made by const and let cannot be accessed before where they are declared
 
+    if (!tour) {
+        // we use return to avoid the next status function being executed
+        return next(new AppError('No tour found with that ID', 404))
+    }
+
     res.status(200).json({
         status: 'success',
         data: {
@@ -106,6 +111,11 @@ exports.updateTour = catchAsync(async (req, res, next) => {
         new: true,
         runValidators: true, // This is to make sure the data we are updating is valid
     })
+
+    if (!tour) {
+        return next(new AppError('No tour found with that ID', 404))
+    }
+
     res.status(200).json({
         status: 'success',
         data: {
@@ -116,8 +126,14 @@ exports.updateTour = catchAsync(async (req, res, next) => {
 
 exports.deleteTour = catchAsync(async (req, res, next) => {
     // In restful API, we use 204 to indicate that the request is successful but there is no content to return
-    await Tour.findByIdAndDelete(req.params.id)
-    // 204: no content
+
+    // we don't need to restore the result of awaiting if we don't need the variable
+    const tour = await Tour.findByIdAndDelete(req.params.id)
+
+    if (!tour) {
+        return next(new AppError('No tour found with that ID', 404))
+    }
+
     res.status(204).json({
         status: 'success',
         data: null,
