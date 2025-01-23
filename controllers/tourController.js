@@ -98,6 +98,7 @@ exports.getTour = catchAsync(async (req, res, next) => {
 exports.createTour = catchAsync(async (req, res, next) => {
     // async function will return a promise
     const newTour = await Tour.create(req.body)
+
     res.status(201).json({
         status: 'success',
         data: {
