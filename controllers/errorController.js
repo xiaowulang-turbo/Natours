@@ -41,7 +41,14 @@ const handleDuplicateFieldsDB = (err) => {
     return new AppError(message, 400)
 }
 
+const handleValidationErrorDB = (err) => {
+    const errors = Object.values(err.errors).map((el) => el.message)
+    const message = `Invalid input data. ${errors.join('. ')}`
+    return new AppError(message, 400)
+}
+
 module.exports = (err, req, res, next) => {
+    // console.log(err)
     err.statusCode = err.statusCode || 500
     err.status = err.status || 'error'
 
@@ -53,6 +60,9 @@ module.exports = (err, req, res, next) => {
         // User error.name cannot work now since CastError is not a valid error name
         if (error.kind === 'ObjectId') error = handleCastErrorDB(error)
         if (error.code === 11000) error = handleDuplicateFieldsDB(error)
+        if (error._message && error._message.includes('validation failed')) {
+            error = handleValidationErrorDB(error)
+        }
         sendErrorProd(error, res)
     }
 }
