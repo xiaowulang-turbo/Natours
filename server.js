@@ -1,6 +1,18 @@
 const dotenv = require('dotenv')
 const mongoose = require('mongoose')
+
+// the shutdown of uncaught exception is required, since the state of the server is not clean anymore
+process.on('uncaughtException', (err) => {
+    console.log('UNCAUGHT EXCEPTION! 💥 Shutting down...')
+    console.log(err.name, err.message)
+    process.exit(1)
+})
+// Handler above must be ahead of app.js
+// Handler above is for syncronas errors which have nothing to do with server
+
 const app = require('./app')
+
+// console.log(x) // test for uncaughtException
 
 // This config should be ahead of app.js. Otherwise it will not work in other files
 dotenv.config({
@@ -35,9 +47,12 @@ const server = app.listen(port, () => {
     console.log('Server is running on port 3000...')
 })
 
+// In real production app, we must have a tool to restart the server when it crashes
+
+// The shutdown of unhandled rejection is optional
 process.on('unhandledRejection', (err) => {
-    console.log(err.name, err.message)
     console.log('UNHANDLED REJECTION! 💥 Shutting down...')
+    console.log(err.name, err.message)
     server.close(() => {
         process.exit(1)
     })
