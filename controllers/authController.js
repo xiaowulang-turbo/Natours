@@ -1,6 +1,6 @@
+const jwt = require('jsonwebtoken')
 const User = require('../models/userModel')
 const catchAsync = require('../utils/catchAsync')
-const jwt = require('jsonwebtoken')
 
 exports.signup = catchAsync(async (req, res, next) => {
     // Specify the fields that are required are safer than using req.body, since req.body can be manipulated and some users can be created as a admin easily
