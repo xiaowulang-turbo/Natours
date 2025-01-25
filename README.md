@@ -56,3 +56,4 @@
 - express 的all方法可以匹配所有请求方法，可以把app.all('\*')放在所有路由之后，用于处理所有未匹配到的路由
 - mongoose的schema model中的validate方法，只在create和save方法中有效，在其他诸如update方法中无效
 - Document Middleware 中的 this 指向当前文档，Query Middleware 中的 this 指向当前查询，Aggregate Middleware 中的 this 指向当前聚合对象
+- mongoose Schema上的instance methods 在所有document实例中都可以使用，可以利用实例方法，在model中添加密码校验方法
