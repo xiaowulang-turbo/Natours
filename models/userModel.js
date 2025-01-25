@@ -52,6 +52,15 @@ userSchema.pre('save', async function (next) {
     next()
 })
 
+// Instance methods: this object refers to the current document
+userSchema.methods.correctPassword = async function (
+    candidatePassword,
+    userPassword
+) {
+    // this.password is not available since we set select: false, so we need to use userPassword
+    return await bcrypt.compare(candidatePassword, userPassword)
+}
+
 const User = mongoose.model('User', userSchema)
 
 module.exports = User
