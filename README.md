@@ -49,3 +49,4 @@
 - mongoose不同的中间件中，this指向的对象不同，是什么中间件，this就指向什么对象
 - AGGREGATION MIDDLEWARE中的pipeline属性是一个异步函数，需使用()调用，不然无法得到正确结果
 - express 的all方法可以匹配所有请求方法，可以把app.all('\*')放在所有路由之后，用于处理所有未匹配到的路由
+- mongoose的schema model中的validate方法，只在create和save方法中有效，在其他诸如update方法中无效
