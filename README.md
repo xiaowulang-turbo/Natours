@@ -14,6 +14,8 @@
 - 设计用户信息表时，应铭记：永远不能明文存储密码，密码需要加密
 - 使用mvc架构时，建议使用thin controller/fat model的模式，controller负责应用逻辑（如路由、请求响应等），model负责业务逻辑（如数据库操作、数据验证等）
 - 在model文件中处理密码加密，更加符合我们提到的mvc架构的规范
+- 对象字面量是一个静态的数据结构声明，{this.something} 这样的语法在对象字面量中是不合法的
+- 服务器一般只支持http协议，https需额外导入配置
 
 # Express.js
 
@@ -33,6 +35,7 @@
 - 上一个问题可以改为使用kind字段处理，CastError的kind为ObjectId
 - 重复命名错误中，无法再获取errmsg，只能通过keyValue获取重复的值
 - 当在异步函数中发生错误时，必须通过 next(err) 传递给错误处理中间件，否则 Express 无法捕获到错误
+- 配置忘记密码方法时，需要将passwordResetToken和passwordResetExpires字段保存到数据库中，直接保存会报错：缺少email和password字段等。需要在save方法中添加validateBeforeSave: false，方可解决
 
 # DataBase
 
