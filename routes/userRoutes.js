@@ -6,7 +6,12 @@ const {
     updateUser,
     deleteUser,
 } = require('../controllers/userController')
-const { signup, login, protect } = require('../controllers/authController')
+const {
+    signup,
+    login,
+    protect,
+    restrictTo,
+} = require('../controllers/authController')
 
 const router = express.Router()
 
@@ -20,7 +25,7 @@ router.route('/').get(protect, getAllUsers).post(createUser)
 router
     .route('/:id')
     .get(protect, getUser)
-    .patch(protect, updateUser)
-    .delete(protect, deleteUser)
+    .patch(protect, restrictTo('admin'), updateUser)
+    .delete(protect, restrictTo('admin', 'lead-guide'), deleteUser)
 
 module.exports = router
