@@ -63,3 +63,4 @@
 - Document Middleware 中的 this 指向当前文档，Query Middleware 中的 this 指向当前查询，Aggregate Middleware 中的 this 指向当前聚合对象
 - mongoose Schema上的instance methods 在所有document实例中都可以使用，可以利用实例方法，在model中添加密码校验方法
 - 在返回登录错误信息时，不分开提示账号错误和密码错误，统一提示'Incorrect email or password'，可以有效防止攻击者通过错误信息判断账号是否存在
+- mongoose的document上的isNew属性，可以判断document是否是新创建的，不需要调用这个属性
