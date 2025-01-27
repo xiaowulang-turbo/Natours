@@ -185,7 +185,6 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
     // 3) Update password and passwordConfirm
     user.password = req.body.password
     user.passwordConfirm = req.body.passwordConfirm
-    user.passwordChangedAt = Date.now()
     user.passwordResetToken = undefined
     user.passwordResetExpires = undefined
     await user.save()
