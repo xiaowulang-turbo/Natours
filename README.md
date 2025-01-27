@@ -16,6 +16,7 @@
 - 在model文件中处理密码加密，更加符合我们提到的mvc架构的规范
 - 对象字面量是一个静态的数据结构声明，{this.something} 这样的语法在对象字面量中是不合法的
 - 服务器一般只支持http协议，https需额外导入配置
+- jwt.verify是一个同步方法，但是传入回调函数后，会产生异步的效果。如果想使用同步的写法，使得后续代码可能及时正确获得jwt.verify的结果，可以使用promisify方法，将jwt.verify包装为promise对象，然后使用await调用。这是一个历史问题，jsonwebtoken库诞生于2013年，而es6在2015年才发布。传统的写法是将后续的代码包裹在回调函数中，然后使用try catch捕获错误（诞生于1999年，es3）。
 
 # Express.js
 
