@@ -12,6 +12,7 @@ const {
     protect,
     restrictTo,
     forgotPassword,
+    resetPassword,
 } = require('../controllers/authController')
 
 const router = express.Router()
@@ -20,6 +21,7 @@ const router = express.Router()
 router.post('/signup', signup)
 router.post('/login', login)
 router.post('/forgotPassword', forgotPassword)
+router.patch('/resetPassword/:token', resetPassword)
 router.route('/').get(protect, getAllUsers).post(createUser)
 
 router
