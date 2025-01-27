@@ -157,3 +157,5 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
         message: 'Token sent to email!',
     })
 })
+
+exports.resetPassword = catchAsync(async (req, res, next) => {})
