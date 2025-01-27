@@ -32,28 +32,47 @@ const userSchema = new mongoose.Schema({
             message: 'Passwords are not the same!',
         },
     },
-    passwordChangedAt: Date,
     photo: String,
     role: {
         type: String,
         enum: ['user', 'guide', 'lead-guide', 'admin'],
         default: 'user',
     },
+    passwordChangedAt: Date,
     passwordResetToken: String,
     passwordResetExpires: Date,
+    active: {
+        type: Boolean,
+        default: true,
+        select: false,
+    },
 })
 
 // It is a good idea to use pre middleware to hash password
 userSchema.pre('save', async function (next) {
-    if (!this.isModified('password') || this.isNew) return next()
+    if (!this.isModified('password')) return next()
 
     // Hash the password with cost of 12
     this.password = await bcrypt.hash(this.password, 12)
-    this.passwordChangedAt = Date.now() - 1000
 
     // This field is not necessary after the password has been hashed
     this.passwordConfirm = undefined
 
+    next()
+})
+
+userSchema.pre('save', function (next) {
+    if (!this.isModified('password') || this.isNew) return next()
+
+    // This is ensure the passwordChangedAt time will be after the token was issued
+    this.passwordChangedAt = Date.now() - 1000
+    next()
+})
+
+// active: true
+userSchema.pre(/^find/, function (next) {
+    // this points to the current query
+    this.find({ active: { $ne: false } })
     next()
 })
 
