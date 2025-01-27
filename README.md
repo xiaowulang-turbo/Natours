@@ -38,6 +38,7 @@
 - 重复命名错误中，无法再获取errmsg，只能通过keyValue获取重复的值
 - 当在异步函数中发生错误时，必须通过 next(err) 传递给错误处理中间件，否则 Express 无法捕获到错误
 - 配置忘记密码方法时，需要将passwordResetToken和passwordResetExpires字段保存到数据库中，直接保存会报错：缺少email和password字段等。需要在save方法中添加validateBeforeSave: false，方可解决
+- 在userModel文件的中间件中处理passwordChangedAt字段时，为图方便，将其与之前的密码加密中间件放在一起，导致新创建的用户密码未加密，通过分开处理，可以解决这个问题
 
 # DataBase
 
