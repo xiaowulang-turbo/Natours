@@ -4,7 +4,7 @@ const rateLimit = require('express-rate-limit')
 const helmet = require('helmet')
 const mongoSanitize = require('express-mongo-sanitize')
 const xss = require('xss-clean')
-
+const hpp = require('hpp')
 const AppError = require('./utils/appError')
 const globalErrorHandler = require('./controllers/errorController')
 
@@ -44,8 +44,24 @@ app.use(mongoSanitize())
 // This middleware will remove the dollar sign and dot from the request body and query string
 
 // Data sanitization against XSS
-// app.use(xss())
+app.use(xss())
 // This middleware will clean any user input from malicious HTML code
+
+// Prevent parameter pollution
+app.use(
+    hpp({
+        // the parameters that we want to allow to be passed multiple times
+        whitelist: [
+            'duration',
+            'ratingsQuantity',
+            'ratingsAverage',
+            'maxGroupSize',
+            'difficulty',
+            'price',
+        ],
+    })
+)
+// This middleware will prevent parameter pollution, which means that if the same parameter is passed multiple times, the last value will be used
 
 // Serving static files
 app.use(express.static(`${__dirname}/public`))
