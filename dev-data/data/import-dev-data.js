@@ -7,7 +7,7 @@ dotenv.config({ path: './config.env' })
 
 // The mongondb create method needs a js object rather than a json file
 const tours = JSON.parse(
-    fs.readFileSync(`${__dirname}/tours-simple.json`, 'utf-8', () => {
+    fs.readFileSync(`${__dirname}/tours.json`, 'utf-8', () => {
         console.log('data loaded')
     })
 )
