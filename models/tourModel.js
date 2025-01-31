@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 const slugify = require('slugify')
 // const validator = require('validator')
+const User = require('./userModel')
 
 // The second argument is the schema options
 const tourSchema = new mongoose.Schema(
@@ -128,6 +129,7 @@ const tourSchema = new mongoose.Schema(
                 day: Number,
             },
         ],
+        guides: Array,
     },
     {
         toJSON: { virtuals: true },
@@ -149,6 +151,14 @@ tourSchema.pre('save', function (next) {
     // console.log('This will run before save')
     // console.log(this)
     this.slug = slugify(this.name, { lower: true })
+    next()
+})
+
+// import guides from the user model
+tourSchema.pre('save', async function (next) {
+    const guides = this.guides.map((id) => User.findById(id))
+    this.guides = await Promise.all(guides)
+
     next()
 })
 
