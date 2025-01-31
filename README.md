@@ -71,3 +71,4 @@
 - 全局limit，可以限制所有用户的请求频率，防止恶意攻击
 - Secure HTTP HEADERS: 应当尽早在app.use中使用，这样就能及时添加header
 - DATA SANITIZATION: 数据清理，防止XSS攻击
+- Restrict the size of request body: 限制请求体的大小，防止恶意攻击, 具体使用方法：app.use(express.json({ limit: '10kb' }))
