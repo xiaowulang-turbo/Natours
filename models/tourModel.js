@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 const slugify = require('slugify')
-const validator = require('validator')
+// const validator = require('validator')
 
 // The second argument is the schema options
 const tourSchema = new mongoose.Schema(
@@ -22,10 +22,6 @@ const tourSchema = new mongoose.Schema(
             //     validator.isAlpha,
             //     'Tour name must only contain characters',
             // ],
-        },
-        secretTour: {
-            type: Boolean,
-            default: false,
         },
         slug: String,
         duration: {
@@ -99,6 +95,39 @@ const tourSchema = new mongoose.Schema(
             default: Date.now(),
         },
         startDates: [Date],
+        secretTour: {
+            type: Boolean,
+            default: false,
+        },
+        startLocation: {
+            type: {
+                type: String,
+                default: 'Point',
+                enum: ['Point'],
+            },
+            coordinates: {
+                type: [Number],
+                required: [true, 'Coordinates are required'],
+            },
+            address: String,
+            description: String,
+        },
+        locations: [
+            {
+                type: {
+                    type: String,
+                    default: 'Point',
+                    enum: ['Point'],
+                },
+                coordinates: {
+                    type: [Number],
+                    required: [true, 'Coordinates are required'],
+                },
+                address: String,
+                description: String,
+                day: Number,
+            },
+        ],
     },
     {
         toJSON: { virtuals: true },
