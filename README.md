@@ -65,3 +65,9 @@
 - mongoose Schema上的instance methods 在所有document实例中都可以使用，可以利用实例方法，在model中添加密码校验方法
 - 在返回登录错误信息时，不分开提示账号错误和密码错误，统一提示'Incorrect email or password'，可以有效防止攻击者通过错误信息判断账号是否存在
 - mongoose的document上的isNew属性，可以判断document是否是新创建的，不需要调用这个属性
+
+# Techniques
+
+- 全局limit，可以限制所有用户的请求频率，防止恶意攻击
+- Secure HTTP HEADERS: 应当尽早在app.use中使用，这样就能及时添加header
+- DATA SANITIZATION: 数据清理，防止XSS攻击
