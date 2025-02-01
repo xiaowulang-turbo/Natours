@@ -159,6 +159,13 @@ tourSchema.pre('save', function (next) {
     next()
 })
 
+// VIRTUAL POPULATE
+tourSchema.virtual('reviews', {
+    ref: 'Review',
+    foreignField: 'tour',
+    localField: '_id',
+})
+
 // import guides from the user model
 // tourSchema.pre('save', async function (next) {
 //     const guides = this.guides.map((id) => User.findById(id))
