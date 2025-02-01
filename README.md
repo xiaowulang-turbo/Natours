@@ -74,3 +74,4 @@
 - XSS-clean: 清理用户输入的恶意HTML代码，防止XSS攻击
 - Restrict the size of request body: 限制请求体的大小，防止恶意攻击, 具体使用方法：app.use(express.json({ limit: '10kb' }))
 - Parameter pollution: 防止参数污染。使用hpp中间件，在whitelist中添加允许重复的参数。不在whitelist中的参数只会查询最后面的一次
+- Nested Routes: 使用嵌套路由，可以更好地组织代码，使代码更加清晰和易于维护
