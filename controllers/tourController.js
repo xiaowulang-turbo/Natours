@@ -77,7 +77,7 @@ exports.getAllTours = catchAsync(async (req, res, next) => {
 
 exports.getTour = catchAsync(async (req, res, next) => {
     // a nice trick to convert string to number
-    const tour = await Tour.findById(req.params.id)
+    const tour = await Tour.findById(req.params.id).populate('reviews')
     // const tour = await Tour.findOne({ _id: req.params.id })
 
     // variables made by const and let cannot be accessed before where they are declared
