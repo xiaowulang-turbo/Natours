@@ -10,10 +10,11 @@ const {
     getMonthlyPlan,
 } = require('../controllers/tourController')
 const { protect, restrictTo } = require('../controllers/authController')
-const {
-    // getAllReviews,
-    createReview,
-} = require('../controllers/reviewController')
+const reviewRouter = require('./reviewRoutes')
+// const {
+//     // getAllReviews,
+//     // createReview,
+// } = require('../controllers/reviewController')
 
 const router = express.Router()
 
@@ -23,6 +24,8 @@ const router = express.Router()
 // Check if the body contains the name and price property
 // If not, send back 400 (Bad Request)
 // Add it to the post handler stack
+
+router.use('/:tourId/reviews', reviewRouter)
 
 // this must be ahead of the id route or it will not work
 router.route('/top-5-cheap').get(aliasTopTours, getAllTours)
@@ -44,6 +47,6 @@ router
 // GET /tour/234fad4/reviews/987654
 
 // nested routes
-router.route('/:tourId/reviews').post(protect, restrictTo('user'), createReview)
+// router.route('/:tourId/reviews').post(protect, restrictTo('user'), createReview)
 
 module.exports = router
