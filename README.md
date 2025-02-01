@@ -75,3 +75,4 @@
 - Restrict the size of request body: 限制请求体的大小，防止恶意攻击, 具体使用方法：app.use(express.json({ limit: '10kb' }))
 - Parameter pollution: 防止参数污染。使用hpp中间件，在whitelist中添加允许重复的参数。不在whitelist中的参数只会查询最后面的一次
 - Nested Routes: 使用嵌套路由，可以更好地组织代码，使代码更加清晰和易于维护
+- Merge Params: 正常情况下，Router只能获取当前匹配的路由参数，使用mergeParams方法，可以获取其他router的参数，例如：router.use('/:tourId/reviews', reviewRouter)中，reviewRouter可以通过mergeParams获取到tourId参数
