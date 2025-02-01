@@ -1,18 +1,19 @@
 const fs = require('fs')
 const mongoose = require('mongoose')
 const dotenv = require('dotenv')
-const Tour = require('../../models/tourModel')
+// const Tour = require('../../models/tourModel')
+const Review = require('../../models/reviewModel')
 
 dotenv.config({ path: './config.env' })
 
 // The mongondb create method needs a js object rather than a json file
-const tours = JSON.parse(
-    fs.readFileSync(`${__dirname}/tours.json`, 'utf-8', () => {
+const reviews = JSON.parse(
+    fs.readFileSync(`${__dirname}/reviews.json`, 'utf-8', () => {
         console.log('data loaded')
     })
 )
 
-// console.log(tours)
+// console.log(reviews)
 
 mongoose
     .connect(process.env.DATABASE_URL, {
@@ -29,7 +30,7 @@ const method = process.argv[2]
 
 const importData = async () => {
     try {
-        await Tour.create(tours)
+        await Review.create(reviews)
         console.log('Data successfully loaded!')
     } catch (err) {
         console.log(err)
@@ -39,7 +40,7 @@ const importData = async () => {
 
 const deleteData = async () => {
     try {
-        await Tour.deleteMany()
+        await Review.deleteMany()
         console.log('Data successfully deleted!')
     } catch (err) {
         console.log(err)
