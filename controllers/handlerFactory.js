@@ -1,6 +1,7 @@
 // Handler Factory
 const AppError = require('../utils/appError')
 const catchAsync = require('../utils/catchAsync')
+const APIFeatures = require('../utils/apiFeatures')
 
 exports.deleteOne = (Model) =>
     // Closure: 闭包是指函数可以访问其词法作用域中的变量，即使这个函数在其词法作用域之外被调用
@@ -52,6 +53,26 @@ exports.getOne = (Model, popOptions) =>
 
         res.status(200).json({
             status: 'success',
+            data: { doc },
+        })
+    })
+
+exports.getAll = (Model) =>
+    catchAsync(async (req, res, next) => {
+        let filter = {}
+        if (req.params.tourId) filter = { tour: req.params.tourId }
+
+        const features = new APIFeatures(Model.find(filter), req.query)
+            .filter()
+            .sort()
+            .limitFields()
+            .paginate()
+
+        const doc = await features.query
+
+        res.status(200).json({
+            status: 'success',
+            results: doc.length,
             data: { doc },
         })
     })
