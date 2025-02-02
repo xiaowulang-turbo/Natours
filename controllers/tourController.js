@@ -2,45 +2,11 @@
 const Tour = require('../models/tourModel')
 const APIFeatures = require('../utils/apiFeatures')
 const catchAsync = require('../utils/catchAsync')
-const AppError = require('../utils/appError')
+// const AppError = require('../utils/appError')
 
-const { deleteOne, updateOne } = require('./handlerFactory')
+const { deleteOne, updateOne, createOne, getOne } = require('./handlerFactory')
 
 // console.log(tours)
-
-// const tours = JSON.parse(
-//     fs.readFileSync(`${__dirname}/../dev-data/data/tours-simple.json`)
-// )
-
-// Use middlewares to deal with extra logics, this is also the philosophy of express
-
-/*
-exports.checkID = (req, res, next, val) => {
-    console.log(`Tour ID is: ${val}`)
-
-    if (req.params.id * 1 >= tours.length) {
-        return res.status(404).json({
-            status: 'fail',
-            message: 'Invalid ID',
-        })
-    }
-    next()
-}
-
-exports.checkBody = (req, res, next) => {
-    console.log(req.body)
-
-    if (!req.body.name || !req.body.price) {
-        // 400: bad request
-        return res.status(400).json({
-            status: 'fail',
-            message: 'Missing name or price',
-        })
-    }
-    // Never miss the next() function
-    next()
-}
-    */
 
 // Keep the handlers function pure
 
@@ -78,56 +44,9 @@ exports.getAllTours = catchAsync(async (req, res, next) => {
     })
 })
 
-exports.getTour = catchAsync(async (req, res, next) => {
-    // a nice trick to convert string to number
-    const tour = await Tour.findById(req.params.id).populate('reviews')
-    // const tour = await Tour.findOne({ _id: req.params.id })
-
-    // variables made by const and let cannot be accessed before where they are declared
-
-    if (!tour) {
-        // we use return to avoid the next status function being executed
-        return next(new AppError('No tour found with that ID', 404))
-    }
-
-    res.status(200).json({
-        status: 'success',
-        data: {
-            tour,
-        },
-    })
-})
-
-exports.createTour = catchAsync(async (req, res, next) => {
-    // async function will return a promise
-    const newTour = await Tour.create(req.body)
-
-    res.status(201).json({
-        status: 'success',
-        data: {
-            tour: newTour,
-        },
-    })
-})
-
+exports.getTour = getOne(Tour, { path: 'reviews' })
+exports.createTour = createOne(Tour)
 exports.updateTour = updateOne(Tour)
-
-// exports.deleteTour = catchAsync(async (req, res, next) => {
-//     // In restful API, we use 204 to indicate that the request is successful but there is no content to return
-
-//     // we don't need to restore the result of awaiting if we don't need the variable
-//     const tour = await Tour.findByIdAndDelete(req.params.id)
-
-//     if (!tour) {
-//         return next(new AppError('No tour found with that ID', 404))
-//     }
-
-//     res.status(204).json({
-//         status: 'success',
-//         data: null,
-//     })
-// })
-
 exports.deleteTour = deleteOne(Tour)
 
 exports.getTourStats = catchAsync(async (req, res, next) => {
