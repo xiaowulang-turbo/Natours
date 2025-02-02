@@ -1,7 +1,7 @@
 const User = require('../models/userModel')
 const AppError = require('../utils/appError')
 const catchAsync = require('../utils/catchAsync')
-const { deleteOne } = require('./handlerFactory')
+const { deleteOne, getOne } = require('./handlerFactory')
 
 exports.getAllUsers = catchAsync(async (req, res) => {
     const users = await User.find()
@@ -65,13 +65,11 @@ exports.deleteMe = catchAsync(async (req, res, next) => {
     })
 })
 
-exports.getUser = (req, res) => {
-    // 500: server error
-    res.status(500).json({
-        status: 'error',
-        message: 'This route is not yet defined',
-    })
+exports.getMe = (req, res, next) => {
+    req.params.id = req.user.id
+    next()
 }
+exports.getUser = getOne(User)
 
 exports.createUser = (req, res) => {
     res.status(500).json({
