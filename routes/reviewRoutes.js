@@ -15,9 +15,13 @@ const {
 
 router
     .route('/')
-    .get(getAllReviews)
+    .get(protect, getAllReviews)
     .post(protect, restrictTo('user'), setTourUserIds, createReview)
 
-router.route('/:id').get(getReview).delete(deleteReview).patch(updateReview)
+router
+    .route('/:id')
+    .get(getReview)
+    .delete(protect, restrictTo('user', 'admin'), deleteReview)
+    .patch(protect, restrictTo('user'), updateReview)
 
 module.exports = router
