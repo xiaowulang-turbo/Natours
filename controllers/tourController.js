@@ -3,6 +3,9 @@ const Tour = require('../models/tourModel')
 const APIFeatures = require('../utils/apiFeatures')
 const catchAsync = require('../utils/catchAsync')
 const AppError = require('../utils/appError')
+
+const { deleteOne } = require('./handlerFactory')
+
 // console.log(tours)
 
 // const tours = JSON.parse(
@@ -125,21 +128,23 @@ exports.updateTour = catchAsync(async (req, res, next) => {
     })
 })
 
-exports.deleteTour = catchAsync(async (req, res, next) => {
-    // In restful API, we use 204 to indicate that the request is successful but there is no content to return
+// exports.deleteTour = catchAsync(async (req, res, next) => {
+//     // In restful API, we use 204 to indicate that the request is successful but there is no content to return
 
-    // we don't need to restore the result of awaiting if we don't need the variable
-    const tour = await Tour.findByIdAndDelete(req.params.id)
+//     // we don't need to restore the result of awaiting if we don't need the variable
+//     const tour = await Tour.findByIdAndDelete(req.params.id)
 
-    if (!tour) {
-        return next(new AppError('No tour found with that ID', 404))
-    }
+//     if (!tour) {
+//         return next(new AppError('No tour found with that ID', 404))
+//     }
 
-    res.status(204).json({
-        status: 'success',
-        data: null,
-    })
-})
+//     res.status(204).json({
+//         status: 'success',
+//         data: null,
+//     })
+// })
+
+exports.deleteTour = deleteOne(Tour)
 
 exports.getTourStats = catchAsync(async (req, res, next) => {
     const stats = await Tour.aggregate([
