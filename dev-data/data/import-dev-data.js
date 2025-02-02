@@ -2,13 +2,14 @@ const fs = require('fs')
 const mongoose = require('mongoose')
 const dotenv = require('dotenv')
 // const Tour = require('../../models/tourModel')
-const Review = require('../../models/reviewModel')
+// const Review = require('../../models/reviewModel')
+const User = require('../../models/userModel')
 
 dotenv.config({ path: './config.env' })
 
 // The mongondb create method needs a js object rather than a json file
-const reviews = JSON.parse(
-    fs.readFileSync(`${__dirname}/reviews.json`, 'utf-8', () => {
+const users = JSON.parse(
+    fs.readFileSync(`${__dirname}/users.json`, 'utf-8', () => {
         console.log('data loaded')
     })
 )
@@ -30,7 +31,7 @@ const method = process.argv[2]
 
 const importData = async () => {
     try {
-        await Review.create(reviews)
+        await User.create(users, { validateBeforeSave: false })
         console.log('Data successfully loaded!')
     } catch (err) {
         console.log(err)
@@ -40,7 +41,7 @@ const importData = async () => {
 
 const deleteData = async () => {
     try {
-        await Review.deleteMany()
+        await User.deleteMany()
         console.log('Data successfully deleted!')
     } catch (err) {
         console.log(err)
