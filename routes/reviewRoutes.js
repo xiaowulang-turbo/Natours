@@ -8,7 +8,7 @@ const {
     getAllReviews,
     createReview,
     deleteReview,
-    // updateReview,
+    updateReview,
 } = require('../controllers/reviewController')
 
 router
@@ -16,6 +16,6 @@ router
     .get(getAllReviews)
     .post(protect, restrictTo('user'), createReview)
 
-router.route('/:id').delete(deleteReview)
+router.route('/:id').delete(deleteReview).patch(updateReview)
 
 module.exports = router
