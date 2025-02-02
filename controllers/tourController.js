@@ -4,7 +4,7 @@ const APIFeatures = require('../utils/apiFeatures')
 const catchAsync = require('../utils/catchAsync')
 const AppError = require('../utils/appError')
 
-const { deleteOne } = require('./handlerFactory')
+const { deleteOne, updateOne } = require('./handlerFactory')
 
 // console.log(tours)
 
@@ -110,23 +110,7 @@ exports.createTour = catchAsync(async (req, res, next) => {
     })
 })
 
-exports.updateTour = catchAsync(async (req, res, next) => {
-    const tour = await Tour.findByIdAndUpdate(req.params.id, req.body, {
-        new: true,
-        runValidators: true, // This is to make sure the data we are updating is valid
-    })
-
-    if (!tour) {
-        return next(new AppError('No tour found with that ID', 404))
-    }
-
-    res.status(200).json({
-        status: 'success',
-        data: {
-            tour,
-        },
-    })
-})
+exports.updateTour = updateOne(Tour)
 
 // exports.deleteTour = catchAsync(async (req, res, next) => {
 //     // In restful API, we use 204 to indicate that the request is successful but there is no content to return
