@@ -1,3 +1,4 @@
+const path = require('path')
 const express = require('express')
 const morgan = require('morgan')
 const rateLimit = require('express-rate-limit')
@@ -14,7 +15,14 @@ const reviewRouter = require('./routes/reviewRoutes')
 
 const app = express()
 
+app.set('view engine', 'pug')
+// This help us to forget about whether the route has slash or not already
+app.set('views', path.join(__dirname, 'views'))
+
 // 1) GLOBAL MIDDLEWARES
+
+// Serving static files
+app.use(express.static(path.join(__dirname, 'public')))
 
 // Secure HTTP HEADERS
 // In app.use, we always need to pass in a function rather than a function call
@@ -64,9 +72,6 @@ app.use(
 )
 // This middleware will prevent parameter pollution, which means that if the same parameter is passed multiple times, the last value will be used
 
-// Serving static files
-app.use(express.static(`${__dirname}/public`))
-
 // Test middleware
 app.use((req, res, next) => {
     // console.log('Hello from the middleware 😀')
@@ -82,6 +87,13 @@ app.use((req, res, next) => {
 // Only the callback function is running in event loop
 
 // 3) ROUTES
+
+app.get('/', (req, res) => {
+    res.status(200).render('base', {
+        tour: 'The Forest Hiker',
+        user: 'Jonas',
+    })
+})
 
 // Mounting a new router on a route
 app.use('/api/v1/tours', tourRouter)
