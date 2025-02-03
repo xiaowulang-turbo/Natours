@@ -199,8 +199,11 @@ tourSchema.pre(/^find/, function (next) {
 
 // AGGREGATION MIDDLEWARE
 tourSchema.pre('aggregate', function (next) {
-    this.pipeline().unshift({ $match: { secretTour: { $ne: true } } })
-    // console.log(this.pipeline())
+    // 只有在不是 geoNear 操作时才添加 secretTour 过滤
+    const pipeline = this.pipeline()
+    if (!(pipeline.length > 0 && '$geoNear' in pipeline[0])) {
+        pipeline.unshift({ $match: { secretTour: { $ne: true } } })
+    }
     next()
 })
 
