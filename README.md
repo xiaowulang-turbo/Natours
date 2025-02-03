@@ -65,6 +65,8 @@
 - mongoose Schema上的instance methods 在所有document实例中都可以使用，可以利用实例方法，在model中添加密码校验方法
 - 在返回登录错误信息时，不分开提示账号错误和密码错误，统一提示'Incorrect email or password'，可以有效防止攻击者通过错误信息判断账号是否存在
 - mongoose的document上的isNew属性，可以判断document是否是新创建的，不需要调用这个属性
+- 使用explain方法，可以查看查询的统计信息，包括查询时间、查询类型、查询条件等
+- 通过建立index索引，可以提高查询效率，但索引也会消耗内存，所以需要权衡（索引是缓存于服务器内存中的B-Tree，消耗内存，且写入数据时，需维护index），建议在高读写比的document中使用
 
 # Techniques
 
