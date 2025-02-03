@@ -68,6 +68,7 @@ exports.getAll = (Model) =>
             .limitFields()
             .paginate()
 
+        // Explain(.explain()): means that we want to see the query statistics
         const doc = await features.query
 
         res.status(200).json({
