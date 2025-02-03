@@ -142,6 +142,9 @@ const tourSchema = new mongoose.Schema(
     }
 )
 
+tourSchema.index({ price: 1, ratingsAverage: -1 })
+tourSchema.index({ slug: 1 })
+
 // The logic below is business logic rather than application logic, it's a good practice to put it here rather than in the controller
 // The function inside will be called whenever a get request is made
 tourSchema.virtual('durationWeeks').get(function () {
