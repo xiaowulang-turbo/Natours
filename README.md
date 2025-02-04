@@ -95,6 +95,7 @@
 - Merge Params: 正常情况下，Router只能获取当前匹配的路由参数，使用mergeParams方法，可以获取其他router的参数，例如：router.use('/:tourId/reviews', reviewRouter)中，reviewRouter可以通过mergeParams获取到tourId参数
 - Handler Factory: 抽象路由处理函数（包括delete、update等等），可以大大降低维护代码的成本(也用到了闭包的相关知识)
 - Postman的document发布后支持热更新，可以实时查看更新后的文档
+- HTML的元素上可以添加data-属性，在js中可以通过dataset获取到该属性，这是一种很好的数据传递方式（可以减少ajax请求）
 
 # Todos
 
