@@ -1,1 +1,14 @@
-h1 Hello from the other side
+doctype html
+html 
+    head 
+        title Natours | #{tour}
+        link(rel="stylesheet" href="/css/style.css")
+        link(rel="shortcut icon" type="image/png" href="/img/favicon.png")
+    body 
+        h1= tour.toUpperCase()
+        h2= user.toUpperCase()
+
+        - const x = 9;
+        h2= x * x
+        //- h1 The Park Camper
+        p This is a paragraph
