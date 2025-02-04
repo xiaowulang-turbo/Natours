@@ -38,6 +38,7 @@
 - pug中有一部分文件用于处理header和footer等只需要被其他文件include的文件，建议命名以'\_'开头，以区分普通文件，例如'\_header.pug'
 - Pug 模板引擎不支持在模板中直接嵌入复杂的 JavaScript 对象或表达式，尤其是在属性值中。可以通过以下几种方式解决：使用 Pug 的 - 语法嵌入 JavaScript、将复杂逻辑移至controller中、分多步处理、pug的mixin方法
 - pug中，在相邻同级元素之间，在'|'（pipeline）后添加空格，可以起到分割两个元素的作用
+- pug中，使用mixin方法，可以定义一个模板，然后在其他模板中使用include方法引入该模板，使用+开头使用mixin
 
 # Problems
 
