@@ -8,6 +8,7 @@ const xss = require('xss-clean')
 const hpp = require('hpp')
 const AppError = require('./utils/appError')
 const globalErrorHandler = require('./controllers/errorController')
+const cookieParser = require('cookie-parser')
 
 const tourRouter = require('./routes/tourRoutes')
 const userRouter = require('./routes/userRoutes')
@@ -28,7 +29,20 @@ app.use(express.static(path.join(__dirname, 'public')))
 // Secure HTTP HEADERS
 // In app.use, we always need to pass in a function rather than a function call
 // the result of helmet() is exactly a function
-app.use(helmet())
+app.use(
+    helmet({
+        contentSecurityPolicy: {
+            directives: {
+                defaultSrc: ["'self'", 'https:', 'http:', 'data:', 'ws:'],
+                baseUri: ["'self'"],
+                fontSrc: ["'self'", 'https:', 'http:', 'data:'],
+                scriptSrc: ["'self'", 'https:', 'http:', 'blob:'],
+                styleSrc: ["'self'", "'unsafe-inline'", 'https:', 'http:'],
+                imgSrc: ["'self'", 'data:', 'blob:'],
+            },
+        },
+    })
+)
 
 // Development logging
 if (process.env.NODE_ENV === 'development') {
@@ -48,6 +62,7 @@ app.use('/api', limiter)
 
 // Body parser, reading data from body into req.body
 app.use(express.json({ limit: '10kb' }))
+app.use(cookieParser())
 
 // Data sanitization against NoSQL query injection
 app.use(mongoSanitize())
@@ -76,7 +91,7 @@ app.use(
 // Test middleware
 app.use((req, res, next) => {
     // console.log('Hello from the middleware 😀')
-    //console.log(req.headers);
+    console.log(req.cookies)
     next()
 })
 
