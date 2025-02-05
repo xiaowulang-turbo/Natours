@@ -6,3 +6,6 @@ test
 .env
 config.env
 config
+bundle.js
+bundle.js.map
+.cache
