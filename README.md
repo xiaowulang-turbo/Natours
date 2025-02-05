@@ -18,6 +18,7 @@
 - 服务器一般只支持http协议，https需额外导入配置
 - jwt.verify是一个同步方法，但是传入回调函数后，会产生异步的效果。如果想使用同步的写法，使得后续代码可能及时正确获得jwt.verify的结果，可以使用promisify方法，将jwt.verify包装为promise对象，然后使用await调用。这是一个历史问题，jsonwebtoken库诞生于2013年，而es6在2015年才发布。传统的写法是将后续的代码包裹在回调函数中，然后使用try catch捕获错误（诞生于1999年，es3）。
 - 跟密码有关的操作，保存时应使用save而不是update，因为我们希望保存时能完整验证新的数据，也希望能触发中间件，比如密码加密等。
+- variables hoisting: 变量提升，在函数中，var变量声明会被提升到函数顶部，但赋值不会被提升。
 
 # Express.js
 
@@ -101,7 +102,9 @@
 - HTML的元素上可以添加data-属性，在js中可以通过dataset获取到该属性，这是一种很好的数据传递方式（可以减少ajax请求）
 - 可以将多个前端文件打包为一个文件，减少http请求，提高性能，也能减少维护成本(使用parcel等打包工具)
 - 渲染网站时，token通过cookie传递。其他api请求时，token通过header传递
+- 使用cookie保存token数据，并且开启了http:only的情况下，我们无法通过浏览器操纵cookie（修改或者删除都不行）。可以通过新发送一个不含token的cookie，并设置很短的过期时间，来实现注销的操作
 
 # Todos
 
 - 完善authentication和authorization
+- review the knowledge of execute context and variables hoisting
