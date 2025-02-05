@@ -20,5 +20,9 @@
         ],
         "linebreak-style": ["off", "linux"],
         "eslint-plugin-import/no-extraneous-dependencies": "off"
+    },
+    "parserOptions": {
+        "ecmaVersion": 2020,
+        "sourceType": "module"
     }
 }
