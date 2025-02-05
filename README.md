@@ -98,7 +98,7 @@
 - Handler Factory: 抽象路由处理函数（包括delete、update等等），可以大大降低维护代码的成本(也用到了闭包的相关知识)
 - Postman的document发布后支持热更新，可以实时查看更新后的文档
 - HTML的元素上可以添加data-属性，在js中可以通过dataset获取到该属性，这是一种很好的数据传递方式（可以减少ajax请求）
-- 可以将多个前端文件打包为一个文件，减少http请求，提高性能，也能减少维护成本
+- 可以将多个前端文件打包为一个文件，减少http请求，提高性能，也能减少维护成本(使用parcel等打包工具)
 - 渲染网站时，token通过cookie传递。其他api请求时，token通过header传递
 
 # Todos
