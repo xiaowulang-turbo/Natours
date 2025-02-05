@@ -1,5 +1,8 @@
 /* eslint-disable */
-const login = async (email, password) => {
+
+import axios from 'axios'
+
+export default async function login(email, password) {
     try {
         const response = await axios({
             method: 'POST',
@@ -9,16 +12,14 @@ const login = async (email, password) => {
                 password,
             },
         })
-        console.log(response)
+
+        if (response.data.status === 'success') {
+            alert('Login successful')
+            window.setTimeout(() => {
+                location.assign('/')
+            }, 1500)
+        }
     } catch (err) {
         console.log(err)
     }
 }
-
-document.querySelector('.form').addEventListener('submit', (e) => {
-    e.preventDefault()
-    // alert('Submitting')
-    const email = document.getElementById('email').value
-    const password = document.getElementById('password').value
-    login(email, password)
-})
