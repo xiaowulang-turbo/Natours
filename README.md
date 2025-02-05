@@ -40,6 +40,7 @@
 - pug中，在相邻同级元素之间，在'|'（pipeline）后添加空格，可以起到分割两个元素的作用
 - pug中，使用mixin方法，可以定义一个模板，然后在其他模板中使用include方法引入该模板，使用+开头使用mixin
 - Express.js中的路由是精准匹配
+- 每一个pug文件都可以访问res.locals对象，该对象可以保存一些数据，这些数据在所有pug文件中都可以访问
 
 # Problems
 
@@ -98,6 +99,7 @@
 - Postman的document发布后支持热更新，可以实时查看更新后的文档
 - HTML的元素上可以添加data-属性，在js中可以通过dataset获取到该属性，这是一种很好的数据传递方式（可以减少ajax请求）
 - 可以将多个前端文件打包为一个文件，减少http请求，提高性能，也能减少维护成本
+- 渲染网站时，token通过cookie传递。其他api请求时，token通过header传递
 
 # Todos
 
