@@ -9,3 +9,4 @@ config
 bundle.js
 bundle.js.map
 .cache
+test.js
