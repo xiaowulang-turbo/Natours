@@ -62,6 +62,8 @@ module.exports = (err, req, res, next) => {
         sendErrorDev(err, res)
     } else if (process.env.NODE_ENV === 'production') {
         let error = { ...err }
+        // error.message = err.message
+        console.log(error.message, err.message)
 
         // User error.name cannot work now since CastError is not a valid error name
         if (error.kind === 'ObjectId') error = handleCastErrorDB(error)
