@@ -104,6 +104,7 @@
 - 可以将多个前端文件打包为一个文件，减少http请求，提高性能，也能减少维护成本(使用parcel等打包工具)
 - 渲染网站时，token通过cookie传递。其他api请求时，token通过header传递
 - 使用cookie保存token数据，并且开启了http:only的情况下，我们无法通过浏览器操纵cookie（修改或者删除都不行）。可以通过新发送一个不含token的cookie，并设置很短的过期时间，来实现注销的操作
+- 减少if-else语句的使用，转而使用if单句，提前return，减少嵌套，增加代码可读性（但是要注意不要忘记return语句，否则会出错）
 
 # Todos
 
