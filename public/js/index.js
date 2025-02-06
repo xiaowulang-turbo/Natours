@@ -5,7 +5,7 @@ import displayMap from './mapbox'
 
 // DOM ELEMENTS
 const mapBox = document.getElementById('map')
-const loginForm = document.querySelector('.form')
+const loginForm = document.querySelector('.form.form--login')
 const logoutBtn = document.querySelector('.nav__el--logout')
 
 // DElEGATION
@@ -15,6 +15,7 @@ if (mapBox) {
 }
 
 if (loginForm) {
+    console.log('loginForm', loginForm)
     loginForm.addEventListener('submit', (e) => {
         e.preventDefault()
         // VALUES
