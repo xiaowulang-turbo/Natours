@@ -46,8 +46,29 @@ exports.getLoginForm = (req, res) => {
 }
 
 exports.getAccount = catchAsync(async (req, res) => {
+    // console.log(req.user)
     res.status(200).render('account', {
         title: 'Your account',
         user: req.user,
+    })
+})
+
+exports.updateUserData = catchAsync(async (req, res, next) => {
+    console.log(req.body)
+    const updatedUser = await User.findByIdAndUpdate(
+        req.user.id,
+        {
+            name: req.body.name,
+            email: req.body.email,
+        },
+        {
+            new: true,
+            runValidators: true,
+        }
+    )
+
+    res.status(200).render('account', {
+        title: 'Your account',
+        user: updatedUser,
     })
 })
