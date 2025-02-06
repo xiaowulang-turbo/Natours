@@ -17,6 +17,7 @@ const {
     forgotPassword,
     resetPassword,
     updatePassword,
+    logout,
 } = require('../controllers/authController')
 
 const router = express.Router()
@@ -24,6 +25,7 @@ const router = express.Router()
 // this route is not a good restful api practice, but it is a good way to sign up a user
 router.post('/signup', signup)
 router.post('/login', login)
+router.get('/logout', logout)
 router.post('/forgotPassword', forgotPassword)
 router.patch('/resetPassword/:token', resetPassword)
 router.patch('/updateMyPassword', protect, updatePassword)
