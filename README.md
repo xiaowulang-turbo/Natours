@@ -57,6 +57,7 @@
 - 配置忘记密码方法时，需要将passwordResetToken和passwordResetExpires字段保存到数据库中，直接保存会报错：缺少email和password字段等。需要在save方法中添加validateBeforeSave: false，方可解决
 - 在userModel文件的中间件中处理passwordChangedAt字段时，为图方便，将其与之前的密码加密中间件放在一起，导致新创建的用户密码未加密，通过分开处理，可以解决这个问题
 - parcel与mapbox库冲突，所以仍需使用cdn导入mapbox
+- 像let error = { ...err }这样拷贝err对象时，error.message为undefined，需要使用error.message = err.message
 
 # DataBase
 
