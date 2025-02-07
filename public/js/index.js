@@ -32,14 +32,15 @@ if (logoutBtn) {
 }
 
 if (userDataForm) {
-    userDataForm.addEventListener('submit', (e) => {
+    userDataForm.addEventListener('submit', async (e) => {
         e.preventDefault()
         const form = new FormData()
         form.append('name', document.getElementById('name').value)
         form.append('email', document.getElementById('email').value)
         form.append('photo', document.getElementById('photo').files[0])
         console.log('form', form)
-        updateSettings(form, 'data')
+        await updateSettings(form, 'data')
+        location.reload(true)
     })
 }
 
