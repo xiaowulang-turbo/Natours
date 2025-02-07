@@ -43,6 +43,7 @@
 - pug中，使用mixin方法，可以定义一个模板，然后在其他模板中使用include方法引入该模板，使用+开头使用mixin
 - Express.js中的路由是精准匹配
 - 每一个pug文件都可以访问res.locals对象，该对象可以保存一些数据，这些数据在所有pug文件中都可以访问
+- multer中间件可以处理文件上传（用来处理multipart/form-data），使用multer.single('fieldName')方法，可以处理单个文件上传，使用multer.array('fieldName')方法，可以处理多个文件上传
 
 # Problems
 
