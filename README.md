@@ -44,6 +44,7 @@
 - Express.js中的路由是精准匹配
 - 每一个pug文件都可以访问res.locals对象，该对象可以保存一些数据，这些数据在所有pug文件中都可以访问
 - multer中间件可以处理文件上传（用来处理multipart/form-data），使用multer.single('fieldName')方法，可以处理单个文件上传，使用multer.array('fieldName')方法，可以处理多个文件上传
+- multer方法中有几个参数，例如req, file, cb。cb是回调函数，第一个参数是错误，第二个参数是文件名， 没有错误时，第一个参数为null，第二个参数为文件名（与express中间件类似）
 
 # Problems
 
