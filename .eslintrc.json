@@ -19,7 +19,7 @@
             { "argsIgnorePattern": "req|res|next|val" }
         ],
         "linebreak-style": ["off", "linux"],
-        "eslint-plugin-import/no-extraneous-dependencies": "off"
+        "import/no-extraneous-dependencies": "off"
     },
     "parserOptions": {
         "ecmaVersion": 2020,
