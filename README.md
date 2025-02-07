@@ -20,6 +20,8 @@
 - 跟密码有关的操作，保存时应使用save而不是update，因为我们希望保存时能完整验证新的数据，也希望能触发中间件，比如密码加密等。
 - variables hoisting: 变量提升，在函数中，var声明的变量（和函数）会被提升到函数顶部，但赋值不会被提升。但const和let不会被提升，所以不能在声明前使用（块级作用域）。
 - execute context: 执行上下文，在函数中，执行上下文是函数执行时创建的，包含变量、函数、this等。执行前，会将var声明的变量（和函数）提升到函数顶部，但赋值不会被提升。
+- 通过创建formData对象，append name和email等数据，构造一个表单数据对象，使用axios自动识别这个对象，并发送给后端
+- 发送图片数据有两种方法，一种是使用formData对象（可以通过pug，也可以通过构造api实现），另一种是使用axios的post方法，并设置Content-Type为multipart/form-data
 
 # Express.js
 
