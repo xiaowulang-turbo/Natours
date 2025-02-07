@@ -34,6 +34,7 @@ export const logout = async () => {
         if (response.data.status === 'success') {
             showAlert('success', 'Logout successful')
             location.reload(true) // true means that the page will be reloaded and the cache will be cleared
+            location.assign('/')
         }
     } catch (err) {
         showAlert('error', err.response.data.message)
