@@ -22,6 +22,7 @@
 - execute context: 执行上下文，在函数中，执行上下文是函数执行时创建的，包含变量、函数、this等。执行前，会将var声明的变量（和函数）提升到函数顶部，但赋值不会被提升。
 - 通过创建formData对象，append name和email等数据，构造一个表单数据对象，使用axios自动识别这个对象，并发送给后端
 - 发送图片数据有两种方法，一种是使用formData对象（可以通过pug，也可以通过构造api实现），另一种是使用axios的post方法，并设置Content-Type为multipart/form-data
+- forEach回调函数如果是异步方法，那么异步并不会正常执行，因为forEach本身是同步的。可以改用map方法配合await Promise.all()来实现异步操作
 
 # Express.js
 
