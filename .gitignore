@@ -5,7 +5,7 @@ build
 test
 .env
 config.env
-config
+config.env.local
 bundle.js
 bundle.js.map
 .cache
