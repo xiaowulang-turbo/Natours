@@ -1,4 +1,6 @@
 // const fs = require('fs')
+const multer = require('multer')
+const sharp = require('sharp')
 const Tour = require('../models/tourModel')
 const APIFeatures = require('../utils/apiFeatures')
 const catchAsync = require('../utils/catchAsync')
@@ -45,10 +47,34 @@ exports.getAllTours = catchAsync(async (req, res, next) => {
     })
 })
 
+const multerStorage = multer.memoryStorage()
+
+const multerFilter = (req, file, cb) => {
+    if (file.mimetype.startsWith('image')) {
+        cb(null, true)
+    } else {
+        cb(new AppError('Not an image! Please upload an image.', 400), false)
+    }
+}
+
+const upload = multer({
+    storage: multerStorage,
+    fileFilter: multerFilter,
+})
+
+exports.uploadTourImages = upload.fields([
+    { name: 'imageCover', maxCount: 1 },
+    { name: 'images', maxCount: 3 },
+])
+
+exports.resizeTourImages = catchAsync(async (req, res, next) => {
+    next()
+})
+
 exports.getTour = getOne(Tour, { path: 'reviews' })
 exports.createTour = createOne(Tour)
-exports.updateTour = updateOne(Tour)
 exports.deleteTour = deleteOne(Tour)
+exports.updateTour = updateOne(Tour)
 
 exports.getTourStats = catchAsync(async (req, res, next) => {
     const stats = await Tour.aggregate([
