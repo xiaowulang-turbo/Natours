@@ -10,6 +10,8 @@ const {
     getMonthlyPlan,
     getToursWithin,
     getDistances,
+    uploadTourImages,
+    resizeTourImages,
 } = require('../controllers/tourController')
 const { protect, restrictTo } = require('../controllers/authController')
 const reviewRouter = require('./reviewRoutes')
@@ -31,15 +33,11 @@ router.use('/:tourId/reviews', reviewRouter)
 
 // this must be ahead of the id route or it will not work
 router.route('/top-5-cheap').get(aliasTopTours, getAllTours)
-
 router.route('/tour-stats').get(getTourStats)
-
 router.route('/monthly-plan/:year').get(getMonthlyPlan)
-
 router
     .route('/tours-within/:distance/center/:latlng/unit/:unit')
     .get(getToursWithin)
-
 router.route('/distances/:latlng/unit/:unit').get(getDistances)
 
 router.route('/').get(protect, getAllTours).post(protect, createTour)
@@ -47,7 +45,13 @@ router.route('/').get(protect, getAllTours).post(protect, createTour)
 router
     .route('/:id')
     .get(protect, getTour)
-    .patch(protect, restrictTo('admin', 'lead-guide'), updateTour)
+    .patch(
+        protect,
+        restrictTo('admin', 'lead-guide'),
+        uploadTourImages,
+        resizeTourImages,
+        updateTour
+    )
     .delete(protect, restrictTo('admin', 'lead-guide'), deleteTour)
 
 // POST /tour/234fad4/reviews
