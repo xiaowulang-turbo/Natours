@@ -135,7 +135,7 @@
 - stripe
 - stripe-webhook
 - stripe-node
-- mailboxer
+- mailtrap
 - mapbox
 - tempmail
 - html-to-text
