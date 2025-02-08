@@ -1,13 +1,15 @@
 /* eslint-disable */
 const nodemailer = require('nodemailer')
-const htmlToText = require('html-to-text')
+const { htmlToText } = require('html-to-text')
+const pug = require('pug')
 
 module.exports = class Email {
     constructor(user, url) {
         this.to = user.email
-        this.firstName = user.name.split(' ')[0]
+        this.firstName = user.name
         this.url = url
-        this.from = `Jonas Schmedtmann <${process.env.EMAIL_FROM}>`
+        this.from = `${process.env.EMAIL_FROM}`
+        console.log(this.to, this.firstName, this.url, this.from)
     }
 
     newTransport() {
@@ -28,8 +30,9 @@ module.exports = class Email {
 
     async send(template, subject) {
         // 1) Render HTML based on a pug template
+        console.log(`${__dirname}/../views/email/${template}.pug`)
         const html = pug.renderFile(
-            `${__dirname}/../views/emails/${template}.pug`,
+            `${__dirname}/../views/email/${template}.pug`,
             {
                 firstName: this.firstName,
                 url: this.url,
@@ -52,5 +55,12 @@ module.exports = class Email {
 
     async sendWelcome() {
         await this.send('welcome', 'Welcome to the Natours family!')
+    }
+
+    async sendPasswordReset() {
+        await this.send(
+            'passwordReset',
+            'Your password reset token (valid for only 10 minutes)'
+        )
     }
 }
