@@ -120,3 +120,22 @@
 
 - 完善authentication和authorization
 - review the knowledge of execute context and variables hoisting
+
+# Tools
+
+- nodemon/slug/parcel/axios
+- express/mongoose/mongodb
+- sharp
+- multer
+- pug
+- axios
+- jsonwebtoken
+- bcrypt
+- nodemailer
+- stripe
+- stripe-webhook
+- stripe-node
+- mailboxer
+- mapbox
+- tempmail
+- html-to-text
