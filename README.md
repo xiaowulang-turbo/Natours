@@ -139,4 +139,5 @@
 - mapbox
 - tempmail
 - html-to-text
-- mailsend
+- mailersend
+- mailsac
